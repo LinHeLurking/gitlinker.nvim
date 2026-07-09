@@ -26,6 +26,26 @@ function M.get_github_type_url(url_data)
   return url
 end
 
+--- Constructs a git.woa style url
+-- git.woa.com uses a github-style blob path but a gitlab-style line range
+-- (e.g. `#L5-10` instead of github's `#L5-L10`).
+function M.get_gitwoa_type_url(url_data)
+  local url = M.get_base_https_url(url_data)
+  if not url_data.file or not url_data.rev then
+    return url
+  end
+  url = url .. "/blob/" .. url_data.rev .. "/" .. url_data.file
+
+  if not url_data.lstart then
+    return url
+  end
+  url = url .. "#L" .. url_data.lstart
+  if url_data.lend then
+    url = url .. "-" .. url_data.lend
+  end
+  return url
+end
+
 --- Constructs a gitea style url
 function M.get_gitea_type_url(url_data)
   local url = M.get_base_https_url(url_data)
@@ -189,6 +209,7 @@ end
 M.callbacks = {
   ["github.com"] = M.get_github_type_url,
   ["gitlab.com"] = M.get_gitlab_type_url,
+  ["git.woa.com"] = M.get_gitwoa_type_url,
   ["try.gitea.io"] = M.get_gitea_type_url,
   ["codeberg.org"] = M.get_gitea_type_url,
   ["bitbucket.org"] = M.get_bitbucket_type_url,
