@@ -14,6 +14,7 @@ co-workers.
 
 - [github](https://github.com)
 - [gitlab](https://gitlab.com)
+- [git.woa](https://git.woa.com)
 - [gitea](https://try.gitea.io)
 - [bitbucket](https://bitbucket.org)
 - [gogs](https://gogs.io)
@@ -130,6 +131,7 @@ require"gitlinker".setup({
   callbacks = {
         ["github.com"] = require"gitlinker.hosts".get_github_type_url,
         ["gitlab.com"] = require"gitlinker.hosts".get_gitlab_type_url,
+        ["git.woa.com"] = require"gitlinker.hosts".get_gitwoa_type_url,
         ["try.gitea.io"] = require"gitlinker.hosts".get_gitea_type_url,
         ["codeberg.org"] = require"gitlinker.hosts".get_gitea_type_url,
         ["bitbucket.org"] = require"gitlinker.hosts".get_bitbucket_type_url,
